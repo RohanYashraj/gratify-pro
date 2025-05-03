@@ -71,6 +71,38 @@ export default function InfoPage() {
           </div>
         </CardContent>
       </Card>
+
+      <Card className={styles.card}>
+        <CardHeader title="Quick Tips & Summary" />
+        <CardContent>
+          <ul className={styles.list}>
+            <li>Gratuity is paid after 5+ years of continuous service.</li>
+            <li>It is a statutory right under the Payment of Gratuity Act, 1972.</li>
+            <li>Tax exemption is available up to a certain limit as per Income Tax rules.</li>
+            <li>Gratuity is paid on retirement, resignation, superannuation, or in case of death/disablement.</li>
+          </ul>
+        </CardContent>
+      </Card>
+
+      <Card className={styles.card} id="faq">
+        <CardHeader title="Frequently Asked Questions (FAQ)" />
+        <CardContent>
+          <ul className={styles.list}>
+            <li><strong>Q: Is gratuity taxable?</strong><br />
+              A: Gratuity received by employees is tax-free up to a government-specified limit. Amounts above this are taxable as per the Income Tax Act.
+            </li>
+            <li><strong>Q: Can gratuity be paid before 5 years?</strong><br />
+              A: Generally, gratuity is payable only after 5 years of continuous service, except in case of death or disablement.
+            </li>
+            <li><strong>Q: How is the period of service calculated?</strong><br />
+              A: The period of service is rounded to the nearest full year. For example, 6 years and 7 months is considered as 7 years.
+            </li>
+            <li><strong>Q: Who pays gratuity?</strong><br />
+              A: The employer is responsible for paying gratuity to eligible employees.
+            </li>
+          </ul>
+        </CardContent>
+      </Card>
     </div>
   );
 } 

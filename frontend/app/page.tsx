@@ -27,7 +27,7 @@ export default function Home() {
           <p>Read about the Gratuity Act and calculation rules.</p>
         </a>
 
-        <a href="/faq" className={styles.card}>
+        <a href="/info#faq" className={styles.card}>
           <h2>FAQ &rarr;</h2>
           <p>Find answers to frequently asked questions.</p>
         </a>
