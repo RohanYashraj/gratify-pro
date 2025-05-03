@@ -1,65 +1,22 @@
-'use client';
+import * as React from "react"
 
-import React, { InputHTMLAttributes, forwardRef } from 'react';
-import styles from './Input.module.css';
+import { cn } from "@/lib/utils"
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  label?: string;
-  error?: string;
-  fullWidth?: boolean;
-  helperText?: string;
-}
-
-const Input = forwardRef<HTMLInputElement, InputProps>(({
-  label,
-  error,
-  fullWidth = false,
-  helperText,
-  className = '',
-  id,
-  ...rest
-}, ref) => {
-  const inputId = id || label?.toLowerCase().replace(/\s+/g, '-');
-  
-  const inputClasses = [
-    styles.input,
-    error ? styles.error : '',
-    fullWidth ? styles.fullWidth : '',
-    className
-  ].filter(Boolean).join(' ');
-
-  return (
-    <div className={`${styles.container} ${fullWidth ? styles.fullWidth : ''}`}>
-      {label && (
-        <label htmlFor={inputId} className={styles.label}>
-          {label}
-        </label>
-      )}
-      
+const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
+  ({ className, type, ...props }, ref) => {
+    return (
       <input
-        id={inputId}
+        type={type}
+        className={cn(
+          "flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+          className
+        )}
         ref={ref}
-        className={inputClasses}
-        aria-invalid={!!error}
-        aria-describedby={error ? `${inputId}-error` : helperText ? `${inputId}-helper` : undefined}
-        {...rest}
+        {...props}
       />
-      
-      {error && (
-        <p id={`${inputId}-error`} className={styles.errorText}>
-          {error}
-        </p>
-      )}
-      
-      {helperText && !error && (
-        <p id={`${inputId}-helper`} className={styles.helperText}>
-          {helperText}
-        </p>
-      )}
-    </div>
-  );
-});
+    )
+  }
+)
+Input.displayName = "Input"
 
-Input.displayName = 'Input';
-
-export default Input; 
+export { Input }

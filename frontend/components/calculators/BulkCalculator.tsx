@@ -1,8 +1,15 @@
 'use client';
 
 import React, { useState, useRef } from 'react';
-import { Card, CardHeader, CardContent, CardFooter } from '../../components/ui';
-import Button from '../../components/ui/Button';
+import { 
+  Card, 
+  CardHeader, 
+  CardContent, 
+  CardFooter, 
+  Button,
+  CardTitle,
+  CardDescription 
+} from '../../components/ui';
 import styles from './BulkCalculator.module.css';
 
 // Define types for our component
@@ -576,10 +583,10 @@ const BulkCalculator: React.FC = () => {
       {/* File Upload Card */}
       {uploadStatus !== 'complete' && (
         <Card className={styles.card}>
-          <CardHeader
-            title="Bulk Gratuity Calculator"
-            subtitle="Upload a file with employee data to calculate gratuity for multiple employees"
-          />
+          <CardHeader>
+            <CardTitle>Bulk Gratuity Calculator</CardTitle>
+            <CardDescription>Upload a file with employee data to calculate gratuity for multiple employees</CardDescription>
+          </CardHeader>
           <CardContent>
             {fileError && (
               <div className={`${styles.fileError} ${styles[fileError.type]}`}>
@@ -623,7 +630,7 @@ const BulkCalculator: React.FC = () => {
                   Cancel
                 </Button>
                 <Button 
-                  variant="primary" 
+                  variant="default"
                   onClick={handleSubmit}
                 >
                   Calculate Gratuity
@@ -637,10 +644,10 @@ const BulkCalculator: React.FC = () => {
       {/* Results Card */}
       {uploadStatus === 'complete' && results && (
         <Card className={styles.resultCard}>
-          <CardHeader
-            title="Bulk Calculation Results"
-            subtitle={`${results.results.length} employee records processed`}
-          />
+          <CardHeader>
+            <CardTitle>Bulk Calculation Results</CardTitle>
+            <CardDescription>{`${results.results.length} employee records processed`}</CardDescription>
+          </CardHeader>
           <CardContent>
             {renderResults()}
           </CardContent>
@@ -653,7 +660,7 @@ const BulkCalculator: React.FC = () => {
                 Upload Another File
               </Button>
               <Button 
-                variant="primary" 
+                variant="default"
                 onClick={handleDownload}
               >
                 Download Results (CSV)

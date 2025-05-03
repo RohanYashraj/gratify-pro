@@ -1,6 +1,5 @@
 import React, { ReactNode } from 'react';
 import Link from 'next/link';
-import styles from './Layout.module.css';
 
 type LayoutProps = {
   children: ReactNode;
@@ -8,27 +7,33 @@ type LayoutProps = {
 
 export default function Layout({ children }: LayoutProps) {
   return (
-    <div className={styles.layout}>
-      <header className={styles.header}>
-        <div className={styles.logo}>
-          <h1>Gratuity Pro</h1>
+    <div className="flex flex-col min-h-screen">
+      <header className="border-b sticky top-0 z-10 bg-background/95 backdrop-blur">
+        <div className="container mx-auto flex items-center justify-between p-4">
+          <div className="font-bold text-2xl">
+            <Link href="/" className="no-underline text-foreground hover:text-primary">
+              Gratuity Pro
+            </Link>
+          </div>
+          <nav>
+            <ul className="flex gap-6">
+              <li><Link href="/" className="text-muted-foreground hover:text-primary transition-colors">Home</Link></li>
+              <li><Link href="/calculator/individual" className="text-muted-foreground hover:text-primary transition-colors">Individual Calculator</Link></li>
+              <li><Link href="/calculator/bulk" className="text-muted-foreground hover:text-primary transition-colors">Bulk Calculator</Link></li>
+              <li><Link href="/info" className="text-muted-foreground hover:text-primary transition-colors">Learn More</Link></li>
+            </ul>
+          </nav>
         </div>
-        <nav className={styles.nav}>
-          <ul>
-            <li><Link href="/">Home</Link></li>
-            <li><Link href="/calculator/individual">Individual Calculator</Link></li>
-            <li><Link href="/calculator/bulk">Bulk Calculator</Link></li>
-            <li><Link href="/info">Learn More</Link></li>
-          </ul>
-        </nav>
       </header>
       
-      <main className={styles.main}>
+      <main className="flex-1 container mx-auto py-8">
         {children}
       </main>
       
-      <footer className={styles.footer}>
-        <p>&copy; {new Date().getFullYear()} Gratuity Pro - All Rights Reserved</p>
+      <footer className="border-t py-6 bg-muted/40">
+        <div className="container mx-auto text-center text-muted-foreground">
+          <p>&copy; {new Date().getFullYear()} Gratuity Pro - All Rights Reserved</p>
+        </div>
       </footer>
     </div>
   );
