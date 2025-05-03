@@ -1,0 +1,3 @@
+"""
+Gratuity Pro Backend Application.
+""" 
