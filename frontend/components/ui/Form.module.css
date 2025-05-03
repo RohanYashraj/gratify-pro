@@ -1,0 +1,86 @@
+.form {
+  width: 100%;
+}
+
+.formGroup {
+  display: flex;
+  width: 100%;
+}
+
+/* Direction variants */
+.column {
+  flex-direction: column;
+}
+
+.row {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* Spacing variants */
+.spacingTight > * {
+  margin-bottom: 8px;
+}
+
+.spacingTight > *:last-child {
+  margin-bottom: 0;
+}
+
+.spacingNormal > * {
+  margin-bottom: 16px;
+}
+
+.spacingNormal > *:last-child {
+  margin-bottom: 0;
+}
+
+.spacingLoose > * {
+  margin-bottom: 24px;
+}
+
+.spacingLoose > *:last-child {
+  margin-bottom: 0;
+}
+
+/* Horizontal spacing for row direction */
+.row.spacingTight > * {
+  margin-right: 8px;
+  margin-bottom: 0;
+}
+
+.row.spacingNormal > * {
+  margin-right: 16px;
+  margin-bottom: 0;
+}
+
+.row.spacingLoose > * {
+  margin-right: 24px;
+  margin-bottom: 0;
+}
+
+.row > *:last-child {
+  margin-right: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .row {
+    flex-direction: column;
+  }
+  
+  .row > * {
+    width: 100%;
+  }
+  
+  .row.spacingTight > *,
+  .row.spacingNormal > *,
+  .row.spacingLoose > * {
+    margin-right: 0;
+    margin-bottom: 16px;
+  }
+  
+  .row > *:last-child {
+    margin-bottom: 0;
+  }
+} 
