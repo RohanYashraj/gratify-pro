@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './page.module.css';
-import { Card, CardHeader, CardContent } from '../../../components/ui';
+import IndividualCalculator from '../../../components/calculators/IndividualCalculator';
 
 export default function IndividualCalculatorPage() {
   return (
@@ -10,15 +10,7 @@ export default function IndividualCalculatorPage() {
         Calculate gratuity for individual employees based on their service period and last drawn salary.
       </p>
       
-      <Card className={styles.card}>
-        <CardHeader 
-          title="Employee Details" 
-          subtitle="Enter employee information to calculate gratuity amount" 
-        />
-        <CardContent>
-          <p>Form components will be implemented in the next task.</p>
-        </CardContent>
-      </Card>
+      <IndividualCalculator />
     </div>
   );
 } 
