@@ -363,6 +363,12 @@ const BulkCalculator: React.FC = () => {
           <p className={styles.uploadHint}>
             Accepted formats: CSV, Excel (.xls, .xlsx)
           </p>
+          <p className={styles.requiredFields}>
+            Required columns: employee_name, joining_date, leaving_date, last_drawn_salary
+          </p>
+          <p className={styles.optionalFields}>
+            Optional columns: employee_type, termination_reason (empty or missing values will be treated as "unknown")
+          </p>
         </div>
       </div>
       

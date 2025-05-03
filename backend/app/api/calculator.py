@@ -47,8 +47,8 @@ async def calculate_bulk(file: UploadFile = File(...)):
     - joining_date (YYYY-MM-DD)
     - leaving_date (YYYY-MM-DD)
     - last_drawn_salary
-    - employee_type (optional, default: standard)
-    - termination_reason (optional, default: resignation)
+    - employee_type (optional, default: unknown)
+    - termination_reason (optional, default: unknown)
     
     Returns results for all employees and summary statistics.
     """
@@ -80,6 +80,25 @@ async def calculate_bulk(file: UploadFile = File(...)):
                 detail=f"File is missing required columns: {', '.join(missing_columns)}"
             )
         
+        # Add default columns if not present
+        if "employee_type" not in df.columns:
+            df["employee_type"] = "unknown"
+        
+        if "termination_reason" not in df.columns:
+            df["termination_reason"] = "unknown"
+        
+        # Handle NaN values in optional columns
+        df["employee_type"] = df["employee_type"].fillna("unknown")
+        df["termination_reason"] = df["termination_reason"].fillna("unknown")
+        
+        # Ensure employee_type and termination_reason are strings
+        df["employee_type"] = df["employee_type"].astype(str)
+        df["termination_reason"] = df["termination_reason"].astype(str)
+        
+        # Handle any empty strings in optional columns
+        df["employee_type"] = df["employee_type"].replace("", "unknown")
+        df["termination_reason"] = df["termination_reason"].replace("", "unknown")
+        
         # Convert the dataframe to a list of IndividualCalculatorInput objects
         employees = []
         
@@ -89,9 +108,8 @@ async def calculate_bulk(file: UploadFile = File(...)):
                 "joining_date": pd.to_datetime(row["joining_date"]).date(),
                 "leaving_date": pd.to_datetime(row["leaving_date"]).date(),
                 "last_drawn_salary": float(row["last_drawn_salary"]),
-                # Use defaults if optional columns are missing
-                "employee_type": row.get("employee_type", "standard"),
-                "termination_reason": row.get("termination_reason", "resignation")
+                "employee_type": row["employee_type"],
+                "termination_reason": row["termination_reason"]
             }
             
             # Create model object
@@ -125,15 +143,28 @@ async def download_template(file_type: str = "csv"):
     """
     # Create sample data with headers and one example row
     data = {
-        "employee_name": ["John Doe"],
-        "joining_date": ["2015-01-01"],
-        "leaving_date": ["2023-01-01"],
-        "last_drawn_salary": [25000],
-        "employee_type": ["standard"],  # Options: standard, non-covered
-        "termination_reason": ["resignation"]  # Options: resignation, retirement, death, disability
+        "employee_name": ["John Doe", "Jane Smith", "Sam Brown"],
+        "joining_date": ["2015-01-01", "2010-06-15", "2018-03-01"],
+        "leaving_date": ["2023-01-01", "2023-01-01", "2023-05-15"],
+        "last_drawn_salary": [25000, 35000, 30000],
+        "employee_type": ["standard", "non-covered", ""],
+        "termination_reason": ["resignation", "retirement", ""]
     }
     
+    # Add a note about optional fields
+    notes = pd.DataFrame({
+        "employee_name": ["NOTE:"],
+        "joining_date": [""],
+        "leaving_date": [""],
+        "last_drawn_salary": [""],
+        "employee_type": ["Optional: standard/non-covered/unknown (empty values = unknown)"],
+        "termination_reason": ["Optional: resignation/retirement/death/disability/unknown (empty values = unknown)"]
+    })
+    
     df = pd.DataFrame(data)
+    
+    # Append the notes row
+    df = pd.concat([df, notes], ignore_index=True)
     
     if file_type.lower() == "excel" or file_type.lower() == "xlsx":
         # Create an Excel file

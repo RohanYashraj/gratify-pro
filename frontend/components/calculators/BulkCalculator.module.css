@@ -92,6 +92,20 @@
   margin-top: 1rem;
 }
 
+.requiredFields {
+  font-size: 0.8rem;
+  color: #dc2626;  /* Red color for required fields */
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
+.optionalFields {
+  font-size: 0.8rem;
+  color: #6b7280;  /* Gray color for optional fields */
+  margin-top: 0.25rem;
+  font-style: italic;
+}
+
 /* Template Download Section */
 .templateDownloadSection {
   margin-top: 1.5rem;

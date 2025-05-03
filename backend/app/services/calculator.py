@@ -31,7 +31,12 @@ def is_eligible_for_gratuity(years_of_service: float, termination_reason: Termin
     According to the Payment of Gratuity Act:
     - Minimum 5 years of service is required for eligibility
     - Exception: In case of death or disability, there's no minimum service requirement
+    - For unknown termination reasons, the standard 5-year rule is applied
     """
+    # Unknown termination reason uses the standard rule (5-year minimum)
+    if termination_reason == TerminationReason.UNKNOWN:
+        return years_of_service >= 5
+        
     if termination_reason in [TerminationReason.DEATH, TerminationReason.DISABILITY]:
         return True
     return years_of_service >= 5
@@ -50,9 +55,21 @@ def calculate_gratuity_amount(
     - Non-covered employees: (Last Drawn Salary × Period of Service × 15) / 30
     
     Also handles special cases like death and disability.
+    
+    For unknown employee types, the standard calculation is used.
+    For unknown termination reasons, standard eligibility rules are applied.
     """
+    # Handle unknown employee type
+    if employee_type == EmployeeType.UNKNOWN:
+        employee_type = EmployeeType.STANDARD
+    
+    # Handle unknown termination reason for eligibility check
+    effective_termination_reason = termination_reason
+    if termination_reason == TerminationReason.UNKNOWN:
+        effective_termination_reason = TerminationReason.RESIGNATION
+    
     # Check eligibility
-    if not is_eligible_for_gratuity(years_of_service, termination_reason):
+    if not is_eligible_for_gratuity(years_of_service, effective_termination_reason):
         return Decimal('0.00')
     
     # Different formulas for different employee types
@@ -81,7 +98,18 @@ def calculate_individual_gratuity(
     Returns a dictionary with calculation results and metadata.
     """
     years_of_service = calculate_years_of_service(joining_date, leaving_date)
-    is_eligible = is_eligible_for_gratuity(years_of_service, termination_reason)
+    
+    # Handle unknown values for calculation
+    effective_termination_reason = termination_reason
+    if termination_reason == TerminationReason.UNKNOWN:
+        effective_termination_reason = TerminationReason.RESIGNATION
+    
+    is_eligible = is_eligible_for_gratuity(years_of_service, effective_termination_reason)
+    
+    effective_employee_type = employee_type
+    if employee_type == EmployeeType.UNKNOWN:
+        effective_employee_type = EmployeeType.STANDARD
+    
     gratuity_amount = calculate_gratuity_amount(
         last_drawn_salary, 
         years_of_service, 
@@ -91,10 +119,25 @@ def calculate_individual_gratuity(
     
     message = None
     if not is_eligible:
-        if termination_reason not in [TerminationReason.DEATH, TerminationReason.DISABILITY]:
+        if termination_reason == TerminationReason.UNKNOWN or termination_reason not in [TerminationReason.DEATH, TerminationReason.DISABILITY]:
             message = "No gratuity is payable as the service period is less than 5 years."
     elif gratuity_amount >= MAX_GRATUITY_LIMIT:
         message = f"Gratuity amount exceeds the maximum limit of ₹{MAX_GRATUITY_LIMIT:,} and has been capped."
+    
+    # Add note about unknown values if present
+    if employee_type == EmployeeType.UNKNOWN or termination_reason == TerminationReason.UNKNOWN:
+        unknown_fields = []
+        if employee_type == EmployeeType.UNKNOWN:
+            unknown_fields.append("employee type")
+        if termination_reason == TerminationReason.UNKNOWN:
+            unknown_fields.append("termination reason")
+        
+        unknown_message = f"Note: {', '.join(unknown_fields)} not specified. Standard calculation applied."
+        
+        if message:
+            message = f"{message} {unknown_message}"
+        else:
+            message = unknown_message
     
     return {
         "employee_name": employee_name,
