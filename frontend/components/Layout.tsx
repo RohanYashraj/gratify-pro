@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react';
+import Link from 'next/link';
 import styles from './Layout.module.css';
 
 type LayoutProps = {
@@ -14,10 +15,10 @@ export default function Layout({ children }: LayoutProps) {
         </div>
         <nav className={styles.nav}>
           <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/calculator/individual">Individual Calculator</a></li>
-            <li><a href="/calculator/bulk">Bulk Calculator</a></li>
-            <li><a href="/info">Learn More</a></li>
+            <li><Link href="/">Home</Link></li>
+            <li><Link href="/calculator/individual">Individual Calculator</Link></li>
+            <li><Link href="/calculator/bulk">Bulk Calculator</Link></li>
+            <li><Link href="/info">Learn More</Link></li>
           </ul>
         </nav>
       </header>
