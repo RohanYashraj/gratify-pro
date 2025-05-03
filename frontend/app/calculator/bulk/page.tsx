@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './page.module.css';
-import { Card, CardHeader, CardContent } from '../../../components/ui';
+import BulkCalculator from '../../../components/calculators/BulkCalculator';
 
 export default function BulkCalculatorPage() {
   return (
@@ -10,15 +10,7 @@ export default function BulkCalculatorPage() {
         Calculate gratuity for multiple employees at once by uploading a CSV or Excel file.
       </p>
       
-      <Card className={styles.card}>
-        <CardHeader 
-          title="File Upload" 
-          subtitle="Upload a file containing employee data for bulk gratuity calculation" 
-        />
-        <CardContent>
-          <p>File upload components will be implemented in a future task.</p>
-        </CardContent>
-      </Card>
+      <BulkCalculator />
     </div>
   );
 } 

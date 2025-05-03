@@ -8,6 +8,7 @@ class EmployeeType(str, Enum):
     """Enum for different types of employees with different calculation rules"""
     STANDARD = "standard"  # Standard employee under the Payment of Gratuity Act
     NON_COVERED = "non-covered"  # Employees not covered under the Act
+    UNKNOWN = "unknown"  # For cases where employee type is not specified
 
 class TerminationReason(str, Enum):
     """Reason for employment termination that may affect gratuity calculation"""
@@ -15,6 +16,7 @@ class TerminationReason(str, Enum):
     RESIGNATION = "resignation"
     DEATH = "death"
     DISABILITY = "disability"
+    UNKNOWN = "unknown"  # For cases where termination reason is not specified
 
 class IndividualCalculatorInput(BaseModel):
     """
