@@ -1,0 +1,91 @@
+{
+  "meta": {
+    "generatedAt": "2025-05-03T07:30:59.661Z",
+    "tasksAnalyzed": 10,
+    "thresholdScore": 5,
+    "projectName": "Your Project Name",
+    "usedResearch": true
+  },
+  "complexityAnalysis": [
+    {
+      "taskId": 1,
+      "taskTitle": "Project Setup and Infrastructure",
+      "complexityScore": 7,
+      "recommendedSubtasks": 5,
+      "expansionPrompt": "Break down the Project Setup and Infrastructure task into 5 detailed subtasks, focusing on Next.js and FastAPI integration, Docker configuration, environment setup, repository structure, and CI/CD pipeline implementation. Include specific commands and configuration details for each subtask.",
+      "reasoning": "Setting up a full-stack project with Next.js and FastAPI requires significant configuration across multiple technologies. The Docker setup, environment configuration, and ensuring proper communication between frontend and backend add complexity. The task involves multiple environments and potential CI/CD integration."
+    },
+    {
+      "taskId": 2,
+      "taskTitle": "Frontend Foundation",
+      "complexityScore": 6,
+      "recommendedSubtasks": 5,
+      "expansionPrompt": "Break down the Frontend Foundation task into 5 detailed subtasks covering Next.js component architecture, responsive design implementation with Tailwind, routing configuration with App Router, homepage development, and reusable form component creation with TypeScript typing.",
+      "reasoning": "Creating a robust frontend foundation requires careful planning of component architecture, styling approach, and routing structure. The implementation of reusable components with proper TypeScript typing adds complexity, as does ensuring responsive design across devices."
+    },
+    {
+      "taskId": 3,
+      "taskTitle": "Backend Foundation",
+      "complexityScore": 7,
+      "recommendedSubtasks": 6,
+      "expansionPrompt": "Break down the Backend Foundation task into 6 detailed subtasks covering FastAPI project structure following best practices, middleware implementation, Pydantic model design, API endpoint architecture, error handling system, and testing framework setup with specific examples for each.",
+      "reasoning": "Setting up a well-structured FastAPI backend requires implementing proper architecture patterns, middleware configuration, and data validation. Following best practices for project structure and implementing comprehensive error handling adds significant complexity."
+    },
+    {
+      "taskId": 4,
+      "taskTitle": "Gratuity Calculation Logic",
+      "complexityScore": 8,
+      "recommendedSubtasks": 6,
+      "expansionPrompt": "Break down the Gratuity Calculation Logic task into 6 detailed subtasks covering research of Payment of Gratuity Act formulas, implementation of calculation algorithms, handling of special cases and exceptions, comprehensive unit testing, documentation creation, and input validation logic.",
+      "reasoning": "This task involves implementing complex business logic based on legal requirements. Understanding and correctly implementing the Payment of Gratuity Act formulas requires careful research and handling of numerous edge cases. Comprehensive testing is essential to ensure accuracy."
+    },
+    {
+      "taskId": 5,
+      "taskTitle": "Individual Calculator Frontend",
+      "complexityScore": 6,
+      "recommendedSubtasks": 5,
+      "expansionPrompt": "Break down the Individual Calculator Frontend task into 5 detailed subtasks covering form design and implementation, client-side validation with error handling, API integration with loading states, results display component with calculation breakdown, and responsive design optimization.",
+      "reasoning": "Building the individual calculator frontend requires creating an intuitive user interface with proper validation, error handling, and responsive design. The implementation of loading states and displaying calculation results in a user-friendly manner adds moderate complexity."
+    },
+    {
+      "taskId": 6,
+      "taskTitle": "Individual Calculator Backend",
+      "complexityScore": 5,
+      "recommendedSubtasks": 4,
+      "expansionPrompt": "Break down the Individual Calculator Backend task into 4 detailed subtasks covering API endpoint creation with FastAPI, input validation using Pydantic models, integration with calculation logic, and comprehensive error handling with test coverage.",
+      "reasoning": "Implementing the backend API for individual calculations is relatively straightforward once the calculation logic is in place. The main complexity comes from ensuring proper validation, error handling, and testing of the API endpoint."
+    },
+    {
+      "taskId": 7,
+      "taskTitle": "Bulk Calculator Frontend",
+      "complexityScore": 7,
+      "recommendedSubtasks": 5,
+      "expansionPrompt": "Break down the Bulk Calculator Frontend task into 5 detailed subtasks covering file upload interface design and implementation, progress indication system, file preview and validation functionality, results table with sorting and filtering, and error handling for various file-related issues.",
+      "reasoning": "The bulk calculator frontend involves complex UI components for file handling, progress tracking, and displaying large datasets. Implementing preview functionality and handling various file formats adds significant complexity."
+    },
+    {
+      "taskId": 8,
+      "taskTitle": "Bulk Calculator Backend",
+      "complexityScore": 8,
+      "recommendedSubtasks": 6,
+      "expansionPrompt": "Break down the Bulk Calculator Backend task into 6 detailed subtasks covering file upload handling with FastAPI, parsing different file formats (CSV/Excel), efficient processing of multiple records, result file generation, error handling for file-related issues, and performance optimization for large datasets.",
+      "reasoning": "Processing bulk calculations involves complex file handling, parsing different formats, and efficiently processing large datasets. Generating downloadable results and handling various file-related errors adds significant complexity."
+    },
+    {
+      "taskId": 9,
+      "taskTitle": "Export and Download Functionality",
+      "complexityScore": 6,
+      "recommendedSubtasks": 4,
+      "expansionPrompt": "Break down the Export and Download Functionality task into 4 detailed subtasks covering CSV export implementation, file generation and security measures, frontend download integration with progress indicators, and preparation for future export formats (Excel/PDF).",
+      "reasoning": "Implementing export functionality requires handling different file formats and ensuring proper security measures. The frontend integration with progress indicators adds moderate complexity."
+    },
+    {
+      "taskId": 10,
+      "taskTitle": "Educational Content and Refinement",
+      "complexityScore": 4,
+      "recommendedSubtasks": 4,
+      "expansionPrompt": "Break down the Educational Content and Refinement task into 4 detailed subtasks covering informational page creation about the Gratuity Act, FAQ section implementation, UI/UX refinement based on testing feedback, and performance optimization techniques for the application.",
+      "reasoning": "This task focuses on content creation and refinement rather than complex technical implementation. While it requires attention to detail for UI/UX improvements and performance optimization, it has lower technical complexity compared to other tasks."
+    }
+  ]
+}

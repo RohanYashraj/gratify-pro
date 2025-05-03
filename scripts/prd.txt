@@ -1,0 +1,243 @@
+# Overview
+The Gratuity Calculator App is a web application designed to automate and simplify the calculation of gratuity amounts according to the Payment of Gratuity Act, 1972 in India. It serves both individuals seeking to calculate their personal gratuity entitlements and organizations needing to process gratuity calculations in bulk. By providing accurate, instant calculations and a user-friendly interface, the app aims to reduce errors, save time, and ensure compliance with legal requirements.
+
+# Core Features
+1. **Individual Gratuity Calculator**
+   - Interactive form for entering personal employment details
+   - Real-time calculation of gratuity amount
+   - Clear display of eligibility criteria and calculation breakdown
+   - Printable/downloadable results
+
+2. **Bulk Gratuity Calculator**
+   - CSV/Excel file upload functionality for multiple employee records
+   - Batch processing of gratuity calculations
+   - Summary view of all calculations
+   - Downloadable results in CSV/Excel format
+
+3. **Gratuity Act Compliance**
+   - Calculations strictly following the Payment of Gratuity Act, 1972
+   - Up-to-date with latest amendments
+   - Proper handling of edge cases (e.g., partial years, maximum limits)
+
+4. **Results Management**
+   - Download options (CSV, Excel, PDF)
+   - Email functionality for results (future enhancement)
+   - Clear presentation of calculation breakdowns
+
+5. **Educational Resources**
+   - Informational pages about gratuity laws
+   - FAQs and calculation examples
+   - Glossary of terms
+
+# User Experience
+## User Personas
+1. **Individual Employee**
+   - Seeking to understand their gratuity entitlement
+   - Limited technical knowledge
+   - Needs simple interface with clear instructions
+
+2. **HR Professional**
+   - Processing gratuity for multiple employees
+   - Requires efficiency and accuracy
+   - Needs bulk processing capabilities
+
+3. **Finance Manager**
+   - Needs records for accounting purposes
+   - Requires detailed breakdowns and export options
+   - Values compliance and audit trail
+
+## Key User Flows
+1. **Individual Calculation Flow**
+   - Home → Calculate → Enter Details → View Result → Download
+   - Clear step indicators and progress tracking
+   - Immediate validation and error messaging
+
+2. **Bulk Calculation Flow**
+   - Home → Bulk Calculate → Upload File → Process → View Results → Download
+   - Progress indicators for file processing
+   - Summary view with filtering options
+
+## UI/UX Considerations
+- Mobile-responsive design for all screen sizes
+- Accessibility compliance (WCAG standards)
+- Intuitive navigation with minimal clicks
+- Clear call-to-action buttons
+- Helpful tooltips for complex fields
+- Error prevention through validation
+
+# Technical Architecture
+## System Components
+1. **Frontend**
+   - Next.js framework (React-based)
+   - App Router architecture
+   - Server Components for improved performance
+   - Client-side interactivity where needed
+   - Responsive design with CSS modules/Tailwind
+
+2. **Backend**
+   - Python FastAPI framework
+   - RESTful API design
+   - Pydantic models for validation
+   - Async endpoints for improved performance
+   - File parsing capabilities (CSV, Excel)
+
+3. **Infrastructure**
+   - Frontend deployed on Vercel
+   - Backend on cloud VM or container (AWS/GCP/Azure)
+   - HTTPS for all connections
+   - Optional Docker containerization
+
+## Data Models
+1. **EmployeeInput Model**
+   - name: string
+   - date_of_joining: date
+   - date_of_leaving: date
+   - last_drawn_salary: float
+   - additional_fields as required by Act
+
+2. **GratuityResult Model**
+   - eligible: boolean
+   - amount: float
+   - tenure: object (years, months, days)
+   - calculation_breakdown: string
+   - error_messages: array (if any)
+
+3. **BulkUpload Model**
+   - file: binary
+   - results: array of GratuityResult
+
+## APIs and Integrations
+1. **Core Endpoints**
+   - POST /api/calculate (individual calculation)
+   - POST /api/bulk-calculate (bulk file upload)
+   - GET /api/info (static information)
+
+2. **File Handling**
+   - Secure file upload/parsing
+   - In-memory processing
+   - No permanent storage of sensitive data
+
+## Infrastructure Requirements
+- HTTPS for all connections
+- Environment variable configuration
+- CORS security
+- Rate limiting for API protection
+- File size limitations for uploads
+
+# Development Roadmap
+## MVP (Minimum Viable Product)
+1. **Core Calculator Functionality**
+   - Individual calculator with all required fields
+   - Results display with breakdown
+   - Basic downloadable results (CSV)
+
+2. **Basic UI Implementation**
+   - Responsive design
+   - Form validation
+   - Results display
+
+3. **Backend API**
+   - Individual calculation endpoint
+   - Basic error handling
+   - Input validation
+
+## Phase 2: Enhanced Features
+1. **Bulk Calculation Implementation**
+   - File upload functionality
+   - CSV parsing and validation
+   - Bulk results display and download
+
+2. **Improved User Experience**
+   - Enhanced validation and error messaging
+   - Tooltips and help text
+   - Progress indicators
+
+3. **Educational Content**
+   - Informational pages
+   - FAQs and examples
+   - Glossary of terms
+
+## Phase 3: Advanced Features
+1. **Additional Export Options**
+   - Excel format support
+   - PDF generation
+   - Email functionality
+
+2. **Enhanced Bulk Processing**
+   - Excel file support
+   - Template downloads
+   - Batch status tracking
+
+3. **Performance Optimizations**
+   - Caching strategies
+   - Backend performance improvements
+   - Frontend optimizations
+
+# Logical Dependency Chain
+1. **Foundation First**
+   - Set up Next.js project structure
+   - Set up FastAPI backend
+   - Implement basic API connectivity
+
+2. **Core Functionality**
+   - Implement gratuity calculation logic
+   - Create individual calculator form
+   - Develop results display component
+
+3. **Progressive Enhancement**
+   - Add bulk upload functionality
+   - Implement file parsing
+   - Develop bulk results view
+
+4. **Refinement**
+   - Add download/export options
+   - Enhance validation and error handling
+   - Improve UI/UX elements
+
+5. **Education & Support**
+   - Add informational pages
+   - Develop FAQs and examples
+   - Implement help system
+
+# Risks and Mitigations
+## Technical Challenges
+- **Risk**: File parsing errors with inconsistent formats
+  **Mitigation**: Robust validation, clear templates, helpful error messages
+
+- **Risk**: Calculation edge cases missing
+  **Mitigation**: Comprehensive test suite, expert review of logic
+
+- **Risk**: Performance issues with large bulk uploads
+  **Mitigation**: Async processing, progress indicators, pagination of results
+
+## MVP Scoping
+- **Risk**: Feature creep extending timeline
+  **Mitigation**: Clear MVP definition, prioritized backlog, iterative development
+
+- **Risk**: Over-engineering simple features
+  **Mitigation**: Focus on user needs, regular stakeholder feedback
+
+## Resource Constraints
+- **Risk**: Limited development resources
+  **Mitigation**: Modular architecture, leveraging existing libraries, clear documentation
+
+- **Risk**: Deployment environment limitations
+  **Mitigation**: Containerization, environment-agnostic design
+
+# Appendix
+## Technical Specifications
+- **Frontend**: Next.js 14+, React 18+, TypeScript
+- **Backend**: Python 3.11+, FastAPI 0.100+, Pydantic v2
+- **File Handling**: pandas for CSV/Excel parsing
+- **Deployment**: Vercel (frontend), Cloud VM/Container (backend)
+
+## Research Findings
+- The Payment of Gratuity Act, 1972 formula: (Last drawn salary × 15/26 × years of service)
+- Maximum gratuity amount limits as per current regulations
+- Common calculation edge cases (partial years, salary components)
+
+## References
+- Payment of Gratuity Act, 1972 (India)
+- Next.js documentation: https://nextjs.org/docs
+- FastAPI documentation: https://fastapi.tiangolo.com/
+- Best practices for financial calculators 
