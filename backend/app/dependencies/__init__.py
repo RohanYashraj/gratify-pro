@@ -1,3 +1,0 @@
-"""
-Dependencies package for FastAPI dependency injection.
-""" 

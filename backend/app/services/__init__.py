@@ -1,3 +1,3 @@
 """
-Services package for business logic and computation.
+Service modules for business logic.
 """ 
