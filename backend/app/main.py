@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from .api import calculator_router
 
 app = FastAPI(
     title="Gratuity Pro API",
@@ -10,11 +11,18 @@ app = FastAPI(
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Frontend URL
+    allow_origins=[
+        "http://localhost:3000",  # Local development
+        "https://gratify-pro.vercel.app",  # Production frontend
+        "https://*.vercel.app"  # Any Vercel preview deployments
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Include routers
+app.include_router(calculator_router)
 
 @app.get("/")
 async def root():
