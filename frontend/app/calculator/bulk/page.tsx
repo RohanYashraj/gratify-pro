@@ -6,9 +6,9 @@ export default function BulkCalculatorPage() {
   return (
     <div className="container mx-auto max-w-4xl">
       <div className="space-y-4 mb-8 text-center">
-        <H1>Bulk Gratuity Calculator</H1>
+        <H1>Bulk Gratify Calculator</H1>
         <Lead>
-          Calculate gratuity for multiple employees at once by uploading a CSV or Excel file.
+          Upload a file with employee data to calculate gratuity for multiple employees
         </Lead>
       </div>
       

@@ -98,7 +98,7 @@ const BulkCalculator: React.FC = () => {
     // Create a hidden anchor element
     const link = document.createElement('a');
     link.href = url;
-    link.download = `gratuity_calculation_template.${fileType}`;
+    link.download = `gratify_calculation_template.${fileType}`;
     document.body.appendChild(link);
     
     // Click the link to trigger the download
@@ -234,7 +234,7 @@ const BulkCalculator: React.FC = () => {
       "Leaving Date",
       "Last Drawn Salary",
       "Years of Service",
-      "Gratuity Amount",
+      "Gratify Amount",
       "Employee Type",
       "Termination Reason",
       "Eligible",
@@ -263,7 +263,7 @@ const BulkCalculator: React.FC = () => {
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "gratuity_calculations.csv");
+    link.setAttribute("download", "gratify_calculations.csv");
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -342,61 +342,104 @@ const BulkCalculator: React.FC = () => {
 
   // Render upload section
   const renderUploadSection = () => (
-    <>
-      <div 
-        className={styles.uploadArea}
-        onDragOver={handleDragOver}
-        onDrop={handleDrop}
-      >
-        <div className={styles.uploadIcon}>
-          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-          </svg>
-        </div>
-        <div className={styles.uploadText}>
-          <p>Drag and drop your file here</p>
-          <p className={styles.uploadOr}>- OR -</p>
+    <Card className={styles.card}>
+      <CardHeader>
+        <CardTitle>Bulk Gratify Calculator</CardTitle>
+        <CardDescription>
+          Upload a file with employee data to calculate gratuity for multiple employees
+        </CardDescription>
+      </CardHeader>
+      
+      <CardContent>
+        {fileError && (
+          <div className={`${styles.fileError} ${styles[fileError.type]}`}>
+            {fileError.message}
+          </div>
+        )}
+        
+        <div
+          className={styles.uploadArea}
+          onDragOver={handleDragOver}
+          onDrop={handleDrop}
+          onClick={() => fileInputRef.current?.click()}
+        >
+          <div className={styles.uploadIcon}>
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 4V16M12 4L8 8M12 4L16 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M2 17L2.621 19.485C2.72915 19.9177 2.97882 20.3018 3.33033 20.5763C3.68184 20.8508 4.11501 21.0002 4.561 21H19.439C19.885 21.0002 20.3182 20.8508 20.6697 20.5763C21.0212 20.3018 21.2708 19.9177 21.379 19.485L22 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+          
+          <div className={styles.uploadText}>
+            <p className="text-lg font-medium">Drag and drop your file here</p>
+            <p className={styles.uploadOr}>- OR -</p>
+            <button className={styles.fileButton}>Browse Files</button>
+          </div>
+          
           <input
             ref={fileInputRef}
             type="file"
-            id="file-upload"
             className={styles.fileInput}
-            accept=".csv,.xls,.xlsx"
             onChange={handleFileChange}
+            accept=".csv,.xls,.xlsx"
           />
-          <label htmlFor="file-upload" className={styles.fileButton}>
-            Browse Files
-          </label>
-          <p className={styles.uploadHint}>
-            Accepted formats: CSV, Excel (.xls, .xlsx)
-          </p>
-          <p className={styles.requiredFields}>
-            Required columns: employee_name, joining_date, leaving_date, last_drawn_salary
-          </p>
-          <p className={styles.optionalFields}>
-            Optional columns: employee_type, termination_reason (empty or missing values will be treated as "unknown")
-          </p>
+          
+          <div className={styles.uploadHint}>
+            <p>Accepted formats: CSV, Excel (.xls, .xlsx)</p>
+            <p className={styles.requiredFields}>
+              Required columns: employee_name, joining_date, leaving_date, last_drawn_salary
+            </p>
+            <p className={styles.optionalFields}>
+              Optional columns: employee_type, termination_reason (empty or missing values will be treated as "unknown")
+            </p>
+          </div>
         </div>
-      </div>
+        
+        {file && (
+          <div className={styles.fileInfo}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M14 2V8H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M16 13H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M16 17H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M10 9H9H8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            <span className={styles.fileName}>{file.name}</span>
+            <span className={styles.fileSize}>({Math.round(file.size / 1024)} KB)</span>
+            <button
+              className={styles.fileRemove}
+              onClick={(e) => {
+                e.stopPropagation();
+                setFile(null);
+                if (fileInputRef.current) fileInputRef.current.value = '';
+              }}
+            >
+              &times;
+            </button>
+          </div>
+        )}
+      </CardContent>
       
-      <div className={styles.templateDownloadSection}>
-        <p>Not sure about the format? Download a template:</p>
-        <div className={styles.templateButtons}>
-          <button 
-            onClick={() => handleTemplateDownload('csv')}
-            className={styles.templateButton}
-          >
-            CSV Template
-          </button>
-          <button 
-            onClick={() => handleTemplateDownload('xlsx')}
-            className={styles.templateButton}
-          >
-            Excel Template
-          </button>
+      <CardFooter className="justify-between">
+        <div className={styles.templateDownloadSection}>
+          <p>Not sure about the format? Download a template:</p>
+          <div className={styles.templateButtons}>
+            <button
+              className={styles.templateButton}
+              onClick={() => handleTemplateDownload('csv')}
+            >
+              CSV Template
+            </button>
+            <button
+              className={styles.templateButton}
+              onClick={() => handleTemplateDownload('xlsx')}
+            >
+              Excel Template
+            </button>
+          </div>
         </div>
-      </div>
-    </>
+      </CardFooter>
+    </Card>
   );
 
   // Render progress indicator
@@ -420,41 +463,65 @@ const BulkCalculator: React.FC = () => {
   const renderPreview = () => {
     if (previewData.length === 0) return null;
     
-    // Special case for Excel files
-    if (previewData[0]?.note) {
-      return (
-        <div className={styles.previewInfo}>
-          <p>{previewData[0].note}</p>
-          <p>File: {file?.name} ({Math.round(file?.size as number / 1024)} KB)</p>
-        </div>
-      );
-    }
-    
-    // Render CSV preview
     return (
-      <div className={styles.previewContainer}>
-        <h3 className={styles.previewTitle}>File Preview (First 5 rows)</h3>
-        <div className={styles.tableContainer}>
-          <table className={styles.previewTable}>
-            <thead>
-              <tr>
-                {Object.keys(previewData[0]).map(header => (
-                  <th key={header}>{header}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {previewData.map((row, rowIndex) => (
-                <tr key={rowIndex}>
-                  {Object.values(row).map((cell, cellIndex) => (
-                    <td key={cellIndex}>{String(cell)}</td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <Card className={styles.card}>
+        <CardHeader>
+          <CardTitle>File Preview</CardTitle>
+          <CardDescription>
+            {file?.name} ({Math.round(file?.size as number / 1024)} KB)
+          </CardDescription>
+        </CardHeader>
+        
+        <CardContent>
+          {/* Special case for Excel files */}
+          {previewData[0]?.note ? (
+            <div className={styles.previewInfo}>
+              <p>{previewData[0].note}</p>
+            </div>
+          ) : (
+            // Render CSV preview
+            <div className={styles.previewContainer}>
+              <h3 className={styles.previewTitle}>File Preview (First 5 rows)</h3>
+              <div className={styles.tableContainer}>
+                <table className={styles.previewTable}>
+                  <thead>
+                    <tr>
+                      {Object.keys(previewData[0]).map(header => (
+                        <th key={header}>{header}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {previewData.map((row, rowIndex) => (
+                      <tr key={rowIndex}>
+                        {Object.values(row).map((cell, cellIndex) => (
+                          <td key={cellIndex}>{String(cell)}</td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+        </CardContent>
+        
+        <CardFooter className="justify-between flex-col sm:flex-row gap-4">
+          <Button 
+            variant="outline" 
+            onClick={handleReset}
+          >
+            Cancel
+          </Button>
+          
+          <Button
+            onClick={handleSubmit}
+            disabled={uploadStatus === 'uploading' || uploadStatus === 'processing'}
+          >
+            Calculate Gratify
+          </Button>
+        </CardFooter>
+      </Card>
     );
   };
 
@@ -465,210 +532,155 @@ const BulkCalculator: React.FC = () => {
     const sortedAndFilteredResults = getSortedAndFilteredResults();
     
     return (
-      <div className={styles.resultsContainer}>
-        <div className={styles.resultsSummary}>
-          <div className={styles.summaryItem}>
-            <span className={styles.summaryLabel}>Total Gratuity Amount:</span>
-            <span className={styles.summaryValue}>₹{Number(results.total_gratuity_amount).toLocaleString()}</span>
-          </div>
-          <div className={styles.summaryItem}>
-            <span className={styles.summaryLabel}>Eligible Employees:</span>
-            <span className={styles.summaryValue}>{results.eligible_count}</span>
-          </div>
-          <div className={styles.summaryItem}>
-            <span className={styles.summaryLabel}>Ineligible Employees:</span>
-            <span className={styles.summaryValue}>{results.ineligible_count}</span>
-          </div>
-        </div>
+      <Card className={styles.resultCard}>
+        <CardHeader>
+          <CardTitle>Bulk Calculation Results</CardTitle>
+          <CardDescription>{`${results.results.length} employee records processed`}</CardDescription>
+        </CardHeader>
         
-        <div className={styles.filterContainer}>
-          <input
-            type="text"
-            placeholder="Filter by name, type or reason..."
-            value={filterValue}
-            onChange={(e) => setFilterValue(e.target.value)}
-            className={styles.filterInput}
-          />
-        </div>
-        
-        <div className={styles.tableContainer}>
-          <table className={styles.resultsTable}>
-            <thead>
-              <tr>
-                <th onClick={() => handleSort('employee_name')} className={styles.sortableHeader}>
-                  Employee Name
-                  {sortField === 'employee_name' && 
-                    <span className={styles.sortIcon}>{sortDirection === 'asc' ? '↑' : '↓'}</span>
-                  }
-                </th>
-                <th onClick={() => handleSort('joining_date')} className={styles.sortableHeader}>
-                  Joining Date
-                  {sortField === 'joining_date' && 
-                    <span className={styles.sortIcon}>{sortDirection === 'asc' ? '↑' : '↓'}</span>
-                  }
-                </th>
-                <th onClick={() => handleSort('leaving_date')} className={styles.sortableHeader}>
-                  Leaving Date
-                  {sortField === 'leaving_date' && 
-                    <span className={styles.sortIcon}>{sortDirection === 'asc' ? '↑' : '↓'}</span>
-                  }
-                </th>
-                <th onClick={() => handleSort('last_drawn_salary')} className={styles.sortableHeader}>
-                  Salary
-                  {sortField === 'last_drawn_salary' && 
-                    <span className={styles.sortIcon}>{sortDirection === 'asc' ? '↑' : '↓'}</span>
-                  }
-                </th>
-                <th onClick={() => handleSort('years_of_service')} className={styles.sortableHeader}>
-                  Service Years
-                  {sortField === 'years_of_service' && 
-                    <span className={styles.sortIcon}>{sortDirection === 'asc' ? '↑' : '↓'}</span>
-                  }
-                </th>
-                <th onClick={() => handleSort('gratuity_amount')} className={styles.sortableHeader}>
-                  Gratuity Amount
-                  {sortField === 'gratuity_amount' && 
-                    <span className={styles.sortIcon}>{sortDirection === 'asc' ? '↑' : '↓'}</span>
-                  }
-                </th>
-                <th onClick={() => handleSort('employee_type')} className={styles.sortableHeader}>
-                  Type
-                  {sortField === 'employee_type' && 
-                    <span className={styles.sortIcon}>{sortDirection === 'asc' ? '↑' : '↓'}</span>
-                  }
-                </th>
-                <th onClick={() => handleSort('termination_reason')} className={styles.sortableHeader}>
-                  Reason
-                  {sortField === 'termination_reason' && 
-                    <span className={styles.sortIcon}>{sortDirection === 'asc' ? '↑' : '↓'}</span>
-                  }
-                </th>
-                <th onClick={() => handleSort('is_eligible')} className={styles.sortableHeader}>
-                  Eligible
-                  {sortField === 'is_eligible' && 
-                    <span className={styles.sortIcon}>{sortDirection === 'asc' ? '↑' : '↓'}</span>
-                  }
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {sortedAndFilteredResults.map((result, index) => (
-                <tr key={index} className={!result.is_eligible ? styles.ineligibleRow : ''}>
-                  <td>{result.employee_name}</td>
-                  <td>{new Date(result.joining_date).toLocaleDateString()}</td>
-                  <td>{new Date(result.leaving_date).toLocaleDateString()}</td>
-                  <td>₹{Number(result.last_drawn_salary).toLocaleString()}</td>
-                  <td>{result.years_of_service}</td>
-                  <td>₹{Number(result.gratuity_amount).toLocaleString()}</td>
-                  <td>{result.employee_type === 'standard' ? 'Standard' : 'Non-Covered'}</td>
-                  <td>{result.termination_reason.charAt(0).toUpperCase() + result.termination_reason.slice(1)}</td>
-                  <td>{result.is_eligible ? 'Yes' : 'No'}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        
-        {sortedAndFilteredResults.length === 0 && (
-          <div className={styles.noResults}>
-            No results match your filter criteria.
+        <CardContent>
+          <div className={styles.resultsContainer}>
+            <div className={styles.resultsSummary}>
+              <div className={styles.summaryItem}>
+                <span className={styles.summaryLabel}>Total Gratify Amount:</span>
+                <span className={styles.summaryValue}>₹{Number(results.total_gratuity_amount).toLocaleString()}</span>
+              </div>
+              <div className={styles.summaryItem}>
+                <span className={styles.summaryLabel}>Eligible Employees:</span>
+                <span className={styles.summaryValue}>{results.eligible_count}</span>
+              </div>
+              <div className={styles.summaryItem}>
+                <span className={styles.summaryLabel}>Ineligible Employees:</span>
+                <span className={styles.summaryValue}>{results.ineligible_count}</span>
+              </div>
+            </div>
+            
+            <div className={styles.filterContainer}>
+              <input
+                type="text"
+                placeholder="Filter by name, type or reason..."
+                value={filterValue}
+                onChange={(e) => setFilterValue(e.target.value)}
+                className={styles.filterInput}
+              />
+            </div>
+            
+            <div className={styles.tableContainer}>
+              <table className={styles.resultsTable}>
+                <thead>
+                  <tr>
+                    <th onClick={() => handleSort('employee_name')} className={styles.sortableHeader}>
+                      Employee Name
+                      {sortField === 'employee_name' && 
+                        <span className={styles.sortIcon}>{sortDirection === 'asc' ? '↑' : '↓'}</span>
+                      }
+                    </th>
+                    <th onClick={() => handleSort('joining_date')} className={styles.sortableHeader}>
+                      Joining Date
+                      {sortField === 'joining_date' && 
+                        <span className={styles.sortIcon}>{sortDirection === 'asc' ? '↑' : '↓'}</span>
+                      }
+                    </th>
+                    <th onClick={() => handleSort('leaving_date')} className={styles.sortableHeader}>
+                      Leaving Date
+                      {sortField === 'leaving_date' && 
+                        <span className={styles.sortIcon}>{sortDirection === 'asc' ? '↑' : '↓'}</span>
+                      }
+                    </th>
+                    <th onClick={() => handleSort('last_drawn_salary')} className={styles.sortableHeader}>
+                      Salary
+                      {sortField === 'last_drawn_salary' && 
+                        <span className={styles.sortIcon}>{sortDirection === 'asc' ? '↑' : '↓'}</span>
+                      }
+                    </th>
+                    <th onClick={() => handleSort('years_of_service')} className={styles.sortableHeader}>
+                      Service Years
+                      {sortField === 'years_of_service' && 
+                        <span className={styles.sortIcon}>{sortDirection === 'asc' ? '↑' : '↓'}</span>
+                      }
+                    </th>
+                    <th onClick={() => handleSort('gratuity_amount')} className={styles.sortableHeader}>
+                      Gratify Amount
+                      {sortField === 'gratuity_amount' && 
+                        <span className={styles.sortIcon}>{sortDirection === 'asc' ? '↑' : '↓'}</span>
+                      }
+                    </th>
+                    <th onClick={() => handleSort('employee_type')} className={styles.sortableHeader}>
+                      Type
+                      {sortField === 'employee_type' && 
+                        <span className={styles.sortIcon}>{sortDirection === 'asc' ? '↑' : '↓'}</span>
+                      }
+                    </th>
+                    <th onClick={() => handleSort('termination_reason')} className={styles.sortableHeader}>
+                      Reason
+                      {sortField === 'termination_reason' && 
+                        <span className={styles.sortIcon}>{sortDirection === 'asc' ? '↑' : '↓'}</span>
+                      }
+                    </th>
+                    <th onClick={() => handleSort('is_eligible')} className={styles.sortableHeader}>
+                      Eligible
+                      {sortField === 'is_eligible' && 
+                        <span className={styles.sortIcon}>{sortDirection === 'asc' ? '↑' : '↓'}</span>
+                      }
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {sortedAndFilteredResults.map((result, index) => (
+                    <tr key={index} className={!result.is_eligible ? styles.ineligibleRow : ''}>
+                      <td>{result.employee_name}</td>
+                      <td>{new Date(result.joining_date).toLocaleDateString()}</td>
+                      <td>{new Date(result.leaving_date).toLocaleDateString()}</td>
+                      <td>₹{Number(result.last_drawn_salary).toLocaleString()}</td>
+                      <td>{result.years_of_service}</td>
+                      <td>₹{Number(result.gratuity_amount).toLocaleString()}</td>
+                      <td>{result.employee_type === 'standard' ? 'Standard' : 'Non-Covered'}</td>
+                      <td>{result.termination_reason.charAt(0).toUpperCase() + result.termination_reason.slice(1)}</td>
+                      <td>{result.is_eligible ? 'Yes' : 'No'}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            
+            {sortedAndFilteredResults.length === 0 && (
+              <div className={styles.noResults}>
+                No results match your filter criteria.
+              </div>
+            )}
           </div>
-        )}
-      </div>
+        </CardContent>
+        
+        <CardFooter className="justify-between flex-col sm:flex-row gap-4">
+          <Button 
+            variant="outline" 
+            onClick={handleReset}
+          >
+            Upload Another File
+          </Button>
+          
+          <Button
+            onClick={handleDownload}
+          >
+            Download Results (CSV)
+          </Button>
+        </CardFooter>
+      </Card>
     );
   };
 
   return (
     <div className={styles.container}>
-      {/* File Upload Card */}
-      {uploadStatus !== 'complete' && (
-        <Card className={styles.card}>
-          <CardHeader>
-            <CardTitle>Bulk Gratuity Calculator</CardTitle>
-            <CardDescription>Upload a file with employee data to calculate gratuity for multiple employees</CardDescription>
-          </CardHeader>
-          <CardContent>
-            {fileError && (
-              <div className={`${styles.fileError} ${styles[fileError.type]}`}>
-                {fileError.message}
-              </div>
-            )}
-            
-            {uploadStatus === 'idle' ? (
-              renderUploadSection()
-            ) : uploadStatus === 'uploading' || uploadStatus === 'processing' ? (
-              renderProgress()
-            ) : (
-              <>
-                <div className={styles.fileInfo}>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                  <span className={styles.fileName}>{file?.name}</span>
-                  <span className={styles.fileSize}>({Math.round(file?.size as number / 1024)} KB)</span>
-                  <button 
-                    className={styles.fileRemove}
-                    onClick={handleReset}
-                    title="Remove file"
-                  >
-                    ×
-                  </button>
-                </div>
-                
-                {renderPreview()}
-              </>
-            )}
-          </CardContent>
-          
-          {file && uploadStatus === 'preview' && (
-            <CardFooter>
-              <div className={styles.actionButtons}>
-                <Button 
-                  variant="outline" 
-                  onClick={handleReset}
-                >
-                  Cancel
-                </Button>
-                <Button 
-                  variant="default"
-                  onClick={handleSubmit}
-                >
-                  Calculate Gratuity
-                </Button>
-              </div>
-            </CardFooter>
-          )}
-        </Card>
+      {uploadStatus === 'idle' && renderUploadSection()}
+      {(uploadStatus === 'uploading' || uploadStatus === 'processing') && (
+        <>
+          {renderUploadSection()}
+          {renderProgress()}
+        </>
       )}
-      
-      {/* Results Card */}
-      {uploadStatus === 'complete' && results && (
-        <Card className={styles.resultCard}>
-          <CardHeader>
-            <CardTitle>Bulk Calculation Results</CardTitle>
-            <CardDescription>{`${results.results.length} employee records processed`}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            {renderResults()}
-          </CardContent>
-          <CardFooter>
-            <div className={styles.actionButtons}>
-              <Button 
-                variant="outline" 
-                onClick={handleReset}
-              >
-                Upload Another File
-              </Button>
-              <Button 
-                variant="default"
-                onClick={handleDownload}
-              >
-                Download Results (CSV)
-              </Button>
-            </div>
-          </CardFooter>
-        </Card>
-      )}
+      {uploadStatus === 'preview' && renderPreview()}
+      {uploadStatus === 'complete' && results && renderResults()}
+      {uploadStatus === 'error' && renderUploadSection()}
     </div>
   );
 };

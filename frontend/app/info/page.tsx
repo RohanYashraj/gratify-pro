@@ -5,7 +5,7 @@ import { H1, H3, Paragraph, Lead, List, ListItem, Formula } from '@/components/u
 export default function InfoPage() {
   return (
     <div className="container mx-auto max-w-4xl">
-      <div className="space-y-4 mb-8">
+      <div className="space-y-4 mb-8 text-center">
         <H1>About Gratify Pro</H1>
         <Lead>
           Learn about gratuity calculation according to the Payment of Gratuity Act, 1972.
