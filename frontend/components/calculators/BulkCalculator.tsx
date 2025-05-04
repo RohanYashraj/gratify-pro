@@ -13,6 +13,9 @@ import {
 } from '@/components/ui';
 import { cn } from '@/lib/utils';
 
+// API URL from environment variable
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+
 // Define types for our component
 type FileErrorType = {
   message: string;
@@ -94,7 +97,7 @@ const BulkCalculator: React.FC = () => {
   // Download template file
   const handleTemplateDownload = (fileType: 'csv' | 'xlsx') => {
     // Construct the API URL with the file type
-    const url = `http://localhost:8000/calculator/bulk/template?file_type=${fileType}`;
+    const url = `${API_URL}/calculator/bulk/template?file_type=${fileType}`;
     
     // Create a hidden anchor element
     const link = document.createElement('a');
@@ -193,7 +196,7 @@ const BulkCalculator: React.FC = () => {
       }, 300);
       
       // Send file to server
-      const response = await fetch('http://localhost:8000/calculator/bulk', {
+      const response = await fetch(`${API_URL}/calculator/bulk`, {
         method: 'POST',
         body: formData,
       });

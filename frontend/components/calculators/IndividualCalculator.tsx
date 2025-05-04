@@ -26,6 +26,9 @@ import {
   SelectValue
 } from '@/components/ui/select';
 
+// API URL from environment variable
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+
 const formSchema = z.object({
   employee_name: z.string().min(1, { message: 'Employee name is required' }),
   joining_date: z.string().min(1, { message: 'Joining date is required' }),
@@ -75,7 +78,7 @@ export default function IndividualCalculator() {
     setIsLoading(true);
 
     try {
-      const response = await fetch('http://localhost:8000/calculator/individual', {
+      const response = await fetch(`${API_URL}/calculator/individual`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
