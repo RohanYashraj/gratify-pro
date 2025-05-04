@@ -1,4 +1,4 @@
-# Gratuity Pro
+# Gratify Pro
 
 A comprehensive application for calculating gratuity using the Payment of Gratuity Act, 1972. This application provides both individual and bulk calculation options for gratuity amounts.
 
