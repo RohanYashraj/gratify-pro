@@ -3,10 +3,12 @@ const nextConfig = {
   reactStrictMode: true,
   // Configure API proxy for development
   async rewrites() {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+    
     return [
       {
         source: '/api/:path*',
-        destination: 'http://localhost:8000/:path*',
+        destination: `${apiUrl}/:path*`,
       },
     ];
   },
