@@ -1,3 +1,3 @@
 """
-Gratuity Pro Backend Application.
+Gratify Pro Backend Application.
 """ 

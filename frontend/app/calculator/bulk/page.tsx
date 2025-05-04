@@ -1,14 +1,16 @@
 import React from 'react';
-import styles from './page.module.css';
 import BulkCalculator from '../../../components/calculators/BulkCalculator';
+import { H1, Lead } from '@/components/ui';
 
 export default function BulkCalculatorPage() {
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>Bulk Gratuity Calculator</h1>
-      <p className={styles.description}>
-        Calculate gratuity for multiple employees at once by uploading a CSV or Excel file.
-      </p>
+    <div className="container mx-auto max-w-4xl">
+      <div className="space-y-4 mb-8 text-center">
+        <H1>Bulk Gratify Calculator</H1>
+        <Lead>
+          Upload a file with employee data to calculate gratuity for multiple employees
+        </Lead>
+      </div>
       
       <BulkCalculator />
     </div>
