@@ -4,25 +4,27 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { Card, CardContent, CardHeader, CardFooter } from '@/components/ui';
-import { Button } from '@/components/ui-shadcn/button';
-import { Input } from '@/components/ui-shadcn/input';
-import {
+import { 
+  Card, 
+  CardContent, 
+  CardHeader, 
+  CardFooter,
+  Button,
+  Input,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
-} from '@/components/ui-shadcn/form';
+  FormMessage
+} from '@/components/ui';
 import {
   Select,
-  SelectContent,
+  SelectContent, 
   SelectItem,
   SelectTrigger,
-  SelectValue,
-} from '@/components/ui-shadcn/select';
-import { H3, Paragraph } from '@/components/ui-shadcn/typography';
+  SelectValue
+} from '@/components/ui/select';
 
 const formSchema = z.object({
   employee_name: z.string().min(1, { message: 'Employee name is required' }),
@@ -121,10 +123,10 @@ export default function IndividualCalculator() {
       {!result ? (
         <Card className="shadow-sm">
           <CardHeader>
-            <H3>Employee Details</H3>
-            <Paragraph className="text-muted-foreground">
+            <h3 className="text-2xl font-semibold tracking-tight">Employee Details</h3>
+            <p className="text-sm text-muted-foreground">
               Enter employee information to calculate gratuity amount
-            </Paragraph>
+            </p>
           </CardHeader>
           <CardContent>
             {apiError && (
@@ -266,10 +268,10 @@ export default function IndividualCalculator() {
       ) : (
         <Card className="shadow-sm">
           <CardHeader>
-            <H3>Gratuity Calculation Result</H3>
-            <Paragraph className="text-muted-foreground">
+            <h3 className="text-2xl font-semibold tracking-tight">Gratuity Calculation Result</h3>
+            <p className="text-sm text-muted-foreground">
               Calculated based on the provided employee details
-            </Paragraph>
+            </p>
           </CardHeader>
           
           <CardContent>

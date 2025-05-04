@@ -1,10 +1,10 @@
 import Link from 'next/link'
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui"
-import { H1 } from '@/components/ui-shadcn/typography'
+import { H1 } from '@/components/ui'
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-start pb-16">
+    <div className="container flex flex-col items-center justify-start pb-16">
       <div className="text-center space-y-4 mb-12">
         <H1>
           Welcome to <span className="text-primary font-bold">Gratify Pro</span>

@@ -43,7 +43,7 @@ export function H3({ className, children, ...props }: React.HTMLAttributes<HTMLH
   )
 }
 
-export function Paragraph({ className, children, ...props }: React.HTMLAttributes<HTMLParagraphElement>) {
+export function P({ className, children, ...props }: React.HTMLAttributes<HTMLParagraphElement>) {
   return (
     <p
       className={cn("leading-7 mb-4", className)}

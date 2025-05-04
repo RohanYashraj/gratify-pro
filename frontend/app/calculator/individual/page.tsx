@@ -1,6 +1,6 @@
 import React from 'react';
 import IndividualCalculator from '../../../components/calculators/IndividualCalculator';
-import { H1, Lead } from '@/components/ui-shadcn/typography';
+import { H1, Lead } from '@/components/ui';
 
 export default function IndividualCalculatorPage() {
   return (

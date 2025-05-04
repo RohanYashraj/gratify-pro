@@ -1,6 +1,6 @@
 import React from 'react';
 import BulkCalculator from '../../../components/calculators/BulkCalculator';
-import { H1, Lead } from '@/components/ui-shadcn/typography';
+import { H1, Lead } from '@/components/ui';
 
 export default function BulkCalculatorPage() {
   return (
