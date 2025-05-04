@@ -6,7 +6,7 @@ export default function InfoPage() {
   return (
     <div className="container mx-auto max-w-4xl">
       <div className="space-y-4 mb-8">
-        <H1>About Gratuity</H1>
+        <H1>About Gratify Pro</H1>
         <Lead>
           Learn about gratuity calculation according to the Payment of Gratuity Act, 1972.
         </Lead>

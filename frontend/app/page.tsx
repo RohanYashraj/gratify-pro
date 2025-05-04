@@ -7,7 +7,7 @@ export default function Home() {
     <div className="flex flex-col items-center justify-start pb-16">
       <div className="text-center space-y-4 mb-12">
         <H1>
-          Welcome to <span className="text-primary font-bold">Gratuity Pro</span>
+          Welcome to <span className="text-primary font-bold">Gratify Pro</span>
         </H1>
         <p className="text-xl text-muted-foreground max-w-2xl">
           Calculate gratuity amounts according to the Payment of Gratuity Act, 1972

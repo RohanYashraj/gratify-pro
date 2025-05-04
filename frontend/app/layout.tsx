@@ -3,7 +3,7 @@ import Layout from '../components/Layout';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Gratuity Pro',
+  title: 'Gratify Pro',
   description: 'Calculate gratuity amounts according to the Payment of Gratuity Act, 1972',
 };
 

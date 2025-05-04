@@ -12,7 +12,7 @@ export default function Layout({ children }: LayoutProps) {
         <div className="container mx-auto flex items-center justify-between p-4">
           <div className="font-bold text-2xl">
             <Link href="/" className="no-underline text-foreground hover:text-primary">
-              Gratuity Pro
+              Gratify Pro
             </Link>
           </div>
           <nav>
@@ -32,7 +32,7 @@ export default function Layout({ children }: LayoutProps) {
       
       <footer className="border-t py-6 bg-muted/40">
         <div className="container mx-auto text-center text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} Gratuity Pro - All Rights Reserved</p>
+          <p>&copy; {new Date().getFullYear()} Gratify Pro - All Rights Reserved</p>
         </div>
       </footer>
     </div>

@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from .api import calculator_router
 
 app = FastAPI(
-    title="Gratuity Pro API",
+    title="Gratify Pro API",
     description="API for calculating gratuity using the Payment of Gratuity Act, 1972",
     version="1.0.0"
 )
@@ -11,7 +11,11 @@ app = FastAPI(
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Frontend URL
+    allow_origins=[
+        "http://localhost:3000",  # Local development
+        "https://gratify-pro.vercel.app",  # Production frontend
+        "https://*.vercel.app"  # Any Vercel preview deployments
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -25,7 +29,7 @@ async def root():
     """
     Root endpoint that returns a simple welcome message.
     """
-    return {"message": "Welcome to Gratuity Pro API"}
+    return {"message": "Welcome to Gratify Pro API"}
 
 @app.get("/health")
 async def health_check():
